@@ -1,0 +1,95 @@
+body {
+    background-color: #000;
+    background-image: url(../img/bg-body.jpg);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: contain;
+    font-family: 'Bangers', cursive;
+}
+
+.buscar h1 {
+    color: #fff001;
+    text-shadow: -5px 3px 0 #000000, 0 7px 0 #000000;
+}
+
+.form-control:focus {
+    border-color: #ffffff !important;
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+}
+
+.cuadro {
+    height: 30px;
+    width: 195px;
+    color: #fff001;
+    font-size: 17px;
+    background-color: #280000;
+    border: 1px solid #7C0000;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+::placeholder {
+    color: #fff001;
+}
+
+.go {
+    width: 60px;
+    background-color: #fff001;
+}
+
+.cabeza h2 {
+    position: relative;
+    top: 5px;
+    left: 120px;
+    padding: 5px 10px;
+    font-size: 25px;
+    color: #680000;
+    background-color: #fff001;
+    border-radius: 5px;
+}
+
+.grafico {
+    height: 525px;
+    width: 90%;
+    margin: auto;
+}
+
+@media screen and (max-width: 1500px) {
+    .cabeza h2 {
+        margin-left: 0;
+    }
+    .buscar h1 {
+        text-align: center
+    }
+    .buscar2 h4 {
+        font-size: 16px;
+    }
+    .grafico {
+        width: 90%;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        height: 365px;
+        margin-left: auto;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .busqueda {
+        padding-right: 0;
+        padding-left: 32px;
+    }
+    .boton {
+        padding-left: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    #info {
+        padding-right: 0;
+        margin-left: 60px;
+    }
+    .grafico {
+        margin-left: 0;
+        margin-top: 8px;
+    }
+}
