@@ -6,7 +6,6 @@ $(document).ready(function() {
         $.ajax({
             url: 'https://superheroapi.com/api.php/4422922557813929/' + valueInput,
             success: function(data) {
-                console.log(data);
                 let imagen = data.image.url;
                 let nombre = data.name;
                 let full_name = data.biography['full-name'];
@@ -73,8 +72,6 @@ $(document).ready(function() {
                         y: parseInt(stat[1])
                     })
                 })
-                console.log(arr_powerstats)
-                console.log(estadisticas)
 
                 let config = {
                     animationEnable: true,
@@ -98,6 +95,17 @@ $(document).ready(function() {
                 let chart = new CanvasJS.Chart("chartContainer", config);
                 chart.render();
             }
-        })
+        });
     });
+})
+
+let buscar = $('#busqueda');
+buscar.click(function() {
+    let id = document.querySelector('.cuadro').value;
+    let permitido = /[a-zA-Z]/gim;
+    if (id.match(permitido)) {
+        alert("Lo sentimos! Solo puedes ingresar números");
+    } else if (id == "") {
+        alert("Lo sentimos! Debes ingresar al menos un número!");
+    };
 })
