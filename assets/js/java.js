@@ -1,11 +1,17 @@
+$('#loader').hide();
+
 $(document).ready(function() {
     $('form').submit(function(event) {
         event.preventDefault()
         let valueInput = $("#hero").val();
+        $('#loader').show();
+        $('#chartContainer').empty();
+        $("#info").empty()
 
         $.ajax({
             url: 'https://superheroapi.com/api.php/4422922557813929/' + valueInput,
             success: function(data) {
+                let id = data.id;
                 let imagen = data.image.url;
                 let nombre = data.name;
                 let full_name = data.biography['full-name'];
@@ -15,13 +21,13 @@ $(document).ready(function() {
                 let primera_aparición = data.biography['first-appearance'];
                 let altura = data.appearance.height;
                 let peso = data.appearance.weight;
-                let alianzas = data.biography.aliases;
+                let alias = data.biography.aliases;
 
                 $("#info").html(
                     `<div class="card m-1 m-md-4 mt-4">
                     <div class="position-relative">
                         <div class="cabeza position-absolute top-0 start-0 translate-middle">
-                            <h2>${nombre}</h2>
+                            <h2>${nombre} #${id} </h2>
                         </div>
                     </div>
 
@@ -54,7 +60,7 @@ $(document).ready(function() {
                                     <h4><u>Peso:</u> ${peso['0']} - ${peso['1']}.</h4>
                                 </div>
                                 <div class="col-12">
-                                    <h4><u>Alianzas:</u> ${alianzas}.</h4>
+                                    <h4><u>Alias:</u> ${alias}.</h4>
                                 </div>
                             </div>
                         </div>
@@ -63,13 +69,12 @@ $(document).ready(function() {
                 `);
 
                 let estadisticas = []
-
                 let arr_powerstats = Object.entries(data.powerstats);
 
                 arr_powerstats.forEach(function(stat) {
                     estadisticas.push({
                         label: stat[0].charAt(0).toUpperCase() + stat[0].slice(1),
-                        y: parseInt(stat[1])
+                        y: +stat[1]
                     })
                 })
                 let config = {
@@ -93,26 +98,25 @@ $(document).ready(function() {
 
                 let chart = new CanvasJS.Chart('chartContainer', config);
                 chart.render();
-                $('#hero').val('')
-            }
+            },
+            complete: function() {
+                $('#loader').hide();
+                $('#hero').val('');
+            },
         });
     });
 })
 
 let buscar = $('#busqueda');
-buscar.click(function() {
+buscar.click(() => {
     let id = $('#hero').val();
-    let permitido = /[a-zA-Z]/gim;
+    let permitido = /[1-9]/gim;
 
-    if (id.match(permitido)) {
-        alert(`Lo sentimos! Solo puedes ingresar números`);
-    } else if (id == "" || id == 0) {
-        alert(`Lo sentimos! Debes ingresar al menos un número y mayor que cero!`);
+    if (!id.match(permitido)) {
+        alert(`Lo sentimos! Solo puedes ingresar números, al menos uno y mayor que cero!`);
+        $('#hero').val('');
     } else if (id > 731) {
         alert(`Lo sentimos! Nuestra base de datos cuenta con solo 731 personajes :(`);
+        $('#hero').val('');
     };
 })
-
-$(document).ready(function() {
-    $('input').tooltip();
-});
