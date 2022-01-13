@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("form").submit(function(event) {
+    $('form').submit(function(event) {
         event.preventDefault()
         let valueInput = $("#hero").val();
 
@@ -21,7 +21,7 @@ $(document).ready(function() {
                     `<div class="card m-1 m-md-4 mt-4">
                     <div class="position-relative">
                         <div class="cabeza position-absolute top-0 start-0 translate-middle">
-                            <h2><u>Nombre:</u> ${nombre}</h2>
+                            <h2>${nombre}</h2>
                         </div>
                     </div>
 
@@ -68,32 +68,32 @@ $(document).ready(function() {
 
                 arr_powerstats.forEach(function(stat) {
                     estadisticas.push({
-                        label: (stat[0]),
+                        label: stat[0].charAt(0).toUpperCase() + stat[0].slice(1),
                         y: parseInt(stat[1])
                     })
                 })
-
                 let config = {
-                    animationEnable: true,
-                    showInLegend: true,
+                    exportFileName: "Doughnut Chart",
+                    exportEnabled: true,
+                    animationEnabled: true,
 
                     title: {
                         text: `Estadísticas de ${nombre}`
                     },
-                    axisY: {
-                        title: "Valor"
-                    },
-                    axisX: {
-                        title: "Atributo"
-                    },
                     data: [{
-                        type: "pie",
+                        type: "doughnut",
+                        innerRadius: 90,
+                        showInLegend: true,
+                        legendText: '{label}',
+                        toolTipContent: `{label} : {y}`,
+                        indexLabel: `{y}`,
                         dataPoints: estadisticas,
                     }]
                 }
 
-                let chart = new CanvasJS.Chart("chartContainer", config);
+                let chart = new CanvasJS.Chart('chartContainer', config);
                 chart.render();
+                $('#hero').val('')
             }
         });
     });
@@ -101,11 +101,18 @@ $(document).ready(function() {
 
 let buscar = $('#busqueda');
 buscar.click(function() {
-    let id = document.querySelector('.cuadro').value;
+    let id = $('#hero').val();
     let permitido = /[a-zA-Z]/gim;
+
     if (id.match(permitido)) {
-        alert("Lo sentimos! Solo puedes ingresar números");
-    } else if (id == "") {
-        alert("Lo sentimos! Debes ingresar al menos un número!");
+        alert(`Lo sentimos! Solo puedes ingresar números`);
+    } else if (id == "" || id == 0) {
+        alert(`Lo sentimos! Debes ingresar al menos un número y mayor que cero!`);
+    } else if (id > 731) {
+        alert(`Lo sentimos! Nuestra base de datos cuenta con solo 731 personajes :(`);
     };
 })
+
+$(document).ready(function() {
+    $('input').tooltip();
+});
