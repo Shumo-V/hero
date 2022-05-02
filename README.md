@@ -1,4 +1,4 @@
-# Cierre Modulo 2
+# Cierre Modulo 2 "Programación básica en JavaScript".
 
 La revista semanal SuperHero Chile, se encuentra en plena fase de masificación mediante medios digitales, por lo tanto, se diseñó un plan para atraer más clientes y así aumentar el tráfico en su página web.
 
